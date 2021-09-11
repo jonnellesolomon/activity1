@@ -1,20 +1,37 @@
 @extends('layouts.master')
 
-@section('page-title', 'Edit Users')
+@section('page-title', 'Edit User')
 
 
 @section('content')
 
-<form action="{{ route('users.update', $users->id) }}" method="POST">
+<ul>
+    @foreach($errors->all() as $message)
+    <li>{{ $message }}</li>
+    @endforeach
+</ul>
+
+<form action="{{ route('users.update', $user->id) }}" method="POST">
     @csrf 
-    @method('PUT')
+    @method('PATCH')
     <div class="form-group">
-        <label for="">First Name</label>
-        <input type="text" class="form-control" value="{{ $users->fname }}" name="fname">
+        <label for="">Name</label>
+        <input type="text" class="form-control" value="{{ $user->name }}" name="name" required>
     </div>
     <div class="form-group">
-        <label for="">Last Name</label>
-        <input type="text" class="form-control" value="{{ $users->lname }}" name="lname">
+        <label for="">Email</label>
+        <input type="email" class="form-control" value="{{ $user->email }}"  name="email" required>
+    </div>
+
+
+    <div class="form-group">
+        <label for="">Password</label>
+        <input type="password" class="form-control"  name="password">
+    </div>
+
+    <div class="form-group">
+        <label for="">Confirm Password</label>
+        <input type="password" class="form-control"  name="password_confirmation">
     </div>
 
     <button type="submit" class="btn btn-primary mt-2">Save</button>
